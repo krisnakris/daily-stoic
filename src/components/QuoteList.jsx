@@ -25,9 +25,8 @@ class QuoteList extends React.Component {
         <div style={{marginLeft: '30px'}}>
           <li style={{color: 'red'}}> { quote.author} : <br></br> </li>
           <span> { quote.body } </span> <br></br>
-          <span style={{color: 'blue'}}> Source : { quote.quotesource } </span>
+          <span style={{color: 'blue'}}> Source : { quote.quotesource } </span> <br/> 
           <Button variant="success" style= {{ marginLeft : '20px' }} onClick= {(event) => this.detailQuote(event)} > Detail </Button>{' '}
-
           <br></br>  <br></br> 
         </div>
       </>

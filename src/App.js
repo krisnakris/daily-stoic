@@ -44,9 +44,7 @@ class App extends React.Component {
     fetch('https://stoic-server.herokuapp.com/quotes/' + id)
     .then(res => res.json())
     .then(res => {
-      console.log(res);
-
-      swal(`Quote ${res[0].body} added to list`, "Check it in the bottom of the page !", "success");
+      swal(`${res[0].body}`, "", "");
 
     })
     .catch(err => {
@@ -64,16 +62,19 @@ class App extends React.Component {
     return (
       <>
         <h3 style= {{ textAlign: 'center' }}> Welcome to Daily Stoic </h3> <br></br>
+        
+        <div className='container-fluid'>
 
-        <QuoteForm addQuote = { this.addQuote }/>
+          <QuoteForm addQuote = { this.addQuote }/>
 
-        <ul>
-          {
-            quoteList.map(quote => {
-              return <QuoteList detailQuote = {this.detailQuote}  quote = { quote } key= { quote.id }> </QuoteList>
-            })
-          }
-        </ul>
+          <ul>
+            {
+              quoteList.map(quote => {
+                return <QuoteList detailQuote = {this.detailQuote}  quote = { quote } key= { quote.id }> </QuoteList>
+              })
+            }
+          </ul>       
+        </div>
       </>
     )
   }

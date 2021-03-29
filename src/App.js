@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import QuoteList from './components/QuoteList';
 import QuoteForm from './components/QuoteForm';
+import swal from 'sweetalert';
 
 class App extends React.Component {
   constructor () {
@@ -9,8 +10,7 @@ class App extends React.Component {
 
     this.state = {
       quoteList : [],
-      favorit : [],
-      filterBy : ''
+      favorit : []
     }
   }
 
@@ -37,6 +37,21 @@ class App extends React.Component {
       ...this.state,
       quoteList : newQuoteList
     })
+    swal(`Quote ${quote.quote} added to list`, "Check it in the bottom of the page !", "success");
+  }
+
+  detailQuote = (id) => {
+    fetch('https://stoic-server.herokuapp.com/quotes/' + id)
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+
+      swal(`Quote ${res[0].body} added to list`, "Check it in the bottom of the page !", "success");
+
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
   componentDidMount () {
@@ -55,7 +70,7 @@ class App extends React.Component {
         <ul>
           {
             quoteList.map(quote => {
-              return <QuoteList quote = { quote } key= { quote.id }> </QuoteList>
+              return <QuoteList detailQuote = {this.detailQuote}  quote = { quote } key= { quote.id }> </QuoteList>
             })
           }
         </ul>

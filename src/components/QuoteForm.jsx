@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class QuoteForm extends React.Component {
   constructor () {
@@ -27,7 +29,7 @@ class QuoteForm extends React.Component {
   render () {
     return (
       <>
-        <form style={{marginLeft : '30px'}} onSubmit= {(event) => this.formOnSubmit(event)}>
+        <form style={{marginLeft : '30px'}} >
           <input 
           type = 'text'
           name = 'author'
@@ -49,7 +51,8 @@ class QuoteForm extends React.Component {
           value = { this.state.source }
           onChange = { this.handleOnChange }
           /> <br/> <br/>
-          <button style= {{ marginLeft : '20px' }}> Add Quote </button>
+          {/* <button style= {{ marginLeft : '20px' }}> Add Quote </button> */}
+          <Button variant="success" style= {{ marginLeft : '20px' }} onClick= {(event) => this.formOnSubmit(event)} > Success </Button>{' '}
         </form>
       </>
     )

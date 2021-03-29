@@ -7,7 +7,12 @@ class QuoteList extends React.Component {
 
     return (
       <>
-        <li key= { quote.id } > { quote.author } : <br></br> { quote.body } <br/> <br/> </li>
+        <div style={{marginLeft: '30px'}}>
+          <li style={{color: 'red'}}> { quote.author} : <br></br> </li>
+          <span> { quote.body } </span> <br></br>
+          <span style={{color: 'blue'}}> Source : { quote.quotesource } </span>
+          <br></br>  <br></br> 
+        </div>
       </>
     )
   }

@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import QuoteList from './components/QuoteList';
+import QuoteForm from './components/QuoteForm';
 
 class App extends React.Component {
   constructor () {
@@ -8,7 +9,8 @@ class App extends React.Component {
 
     this.state = {
       quoteList : [],
-      favorit : []
+      favorit : [],
+      filterBy : ''
     }
   }
 
@@ -26,6 +28,17 @@ class App extends React.Component {
       })
   }
 
+  addQuote = (quote) => {
+    quote.id = Math.random() * 50000000;
+    quote.quotesource = quote.source;
+    quote.body = quote.quote;
+    let newQuoteList = this.state.quoteList.concat(quote);
+    this.setState({
+      ...this.state,
+      quoteList : newQuoteList
+    })
+  }
+
   componentDidMount () {
     this.getDataFromServer();
   }
@@ -35,19 +48,20 @@ class App extends React.Component {
 
     return (
       <>
-        <h3> Welcome to Daily Stoic </h3> <br></br>
+        <h3 style= {{ textAlign: 'center' }}> Welcome to Daily Stoic </h3> <br></br>
+
+        <QuoteForm addQuote = { this.addQuote }/>
 
         <ul>
           {
-            quoteList.map(ayam => {
-              return <QuoteList quote = { ayam } key= { ayam.id }> </QuoteList>
+            quoteList.map(quote => {
+              return <QuoteList quote = { quote } key= { quote.id }> </QuoteList>
             })
           }
         </ul>
       </>
     )
   }
-
 }
 
 // function App() {

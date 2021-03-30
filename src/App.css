@@ -28,6 +28,10 @@
   color: #61dafb;
 }
 
+img.card-img-top {
+  height: 300px;
+}
+
 .card-text {
   height: 200px;
   overflow: scroll;

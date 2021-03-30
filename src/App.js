@@ -1,11 +1,14 @@
 import './App.css';
 // import React from 'react';
 import QuoteList from './components/QuoteList';
-import QuoteForm from './components/QuoteForm';
-import swal from 'sweetalert';
+// import QuoteForm from './components/QuoteForm';
+// import swal from 'sweetalert';
 import useFetch from './helpers/useFetch';
+import FilterQuotes from './components/FilterQuotes.jsx';
+import { useState } from 'react';
 
 function App () {
+  const [show, setShow] = useState('');
 
   const { data : quoteList, loading, error, setData : setQuotes } = useFetch('https://stoic-server.herokuapp.com/search/good');
 
@@ -20,30 +23,36 @@ function App () {
   }
 
   if (error) {
-    return <h1>Something error...</h1>
+    return <h1> Error loading page </h1>
   }
 
-  function addQuote (quote) {
-    quote.id = Math.random() * 50000000;
-    quote.quotesource = quote.source;
-    quote.body = quote.quote;
-    let newQuoteList = quoteList.concat(quote);
-    setQuotes(newQuoteList);
-    swal(`Quote ${quote.quote} added to list`, "Check it in the bottom of the page !", "success");
-  } 
+  // function addQuote (quote) {
+  //   quote.id = Math.random() * 50000000;
+  //   quote.quotesource = quote.source;
+  //   quote.body = quote.quote;
+  //   let newQuoteList = quoteList.concat(quote);
+  //   setQuotes(newQuoteList);
+  //   swal(`Quote ${quote.quote} added to list`, "Check it in the bottom of the page !", "success");
+  // } 
+
+
+  function filteredQuotes (filter) {
+    setShow(filter);
+  }
+
+  const quoteToShow = show === '' ? quoteList : quoteList.filter(quote => quote.author.toLowerCase().includes(show.toLowerCase()));
 
   return (
     <>
-      <h3 style= {{ textAlign: 'center' }}> Welcome to Daily Stoic </h3> <br></br>
+      <h3 style= {{ textAlign: 'center' }}> Pick Your Quotes </h3> <br></br>
       
-      <div className='container-fluid'>
-
-        <QuoteForm addQuote = { addQuote }/>
+      <div className='container'>
+        <FilterQuotes filteredQuotes = { filteredQuotes } />
 
         <div className='container-image'>
           <div className="row" style= {{ marginBottom: "20rem" }} >
           {
-            quoteList.map(quote => {
+            quoteToShow.map(quote => {
               return <QuoteList  quote = { quote } key= { quote.id }> </QuoteList>
             })
           }

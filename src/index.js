@@ -4,9 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Loader from 'react-loader-spinner';
+import { usePromiseTracker } from 'react-promise-tracker';
 
 const LoadingIndicator = props => {
-  return (
+  const { promiseInProgress } = usePromiseTracker();
+
+  return ( 
+    promiseInProgress && 
+
     <div
       style = {{
         width : "100%",

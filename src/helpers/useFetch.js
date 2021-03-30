@@ -21,7 +21,7 @@ export default function useFetch (url) {
       .catch(err => {
         setError(err)
       }) 
-      )
+    )
       // .finally(_ => {
       //   setLoading(false);
       // })

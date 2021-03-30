@@ -24,15 +24,15 @@ function QuoteForm (props) {
         type = 'text'
         name = 'author'
         placeholder = 'author'
-        onChange = {event => setAuthor(event.target.value) }
-        // value = { author }
+        onChange = { event => setAuthor(event.target.value) }
+        value = { author }
         /> <br></br> <br/>
         <input 
         type = 'text'
         name = 'quote'
         placeholder = 'quote'
         onChange = {event => setQuote(event.target.value) }
-        // value = { quote }
+        value = { quote }
 
         /> <br/> <br/>
         <input 
@@ -40,7 +40,7 @@ function QuoteForm (props) {
         name = 'source'
         placeholder = 'source'
         onChange = {event => setSource(event.target.value) }
-        // value = { source }
+        value = { source }
 
         /> <br/> <br/>
         {/* <button style= {{ marginLeft : '20px' }}> Add Quote </button> */}

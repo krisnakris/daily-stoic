@@ -1,15 +1,25 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import swal from 'sweetalert';
 
 function QuoteList ( props ) {
 
-  function detailQuote (event) {
-    event.preventDefault();
+  // function detailQuote (event) {
+  //   event.preventDefault();
 
-    props.detailQuote(props.quote.id);
+  //   props.detailQuote(props.quote.id);
+  // }
+  function detailQuote () {
+    fetch('https://stoic-server.herokuapp.com/quotes/' + props.quote.id)
+    .then(res => res.json())
+    .then(res => {
+      swal(`${res[0].body}`, "", "");
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
-
 
   return (
     <>

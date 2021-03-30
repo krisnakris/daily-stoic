@@ -1,21 +1,27 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+// import React from 'react';
 import QuoteList from './components/QuoteList';
 import QuoteForm from './components/QuoteForm';
 import swal from 'sweetalert';
+import useFetch from './helpers/useFetch';
 
 function App () {
-  const [quoteList, setQuotes] = useState([]);
 
-  function getDataFromServer () {
-    fetch('https://stoic-server.herokuapp.com/search/good')
-      .then(res => res.json())
-      .then(res => {
-          setQuotes(res)
-        })
-      .catch(err => {
-        console.log(err);
-      })
+  const { data : quoteList, loading, error, setData : setQuotes } = useFetch('https://stoic-server.herokuapp.com/search/good');
+
+  if (loading) {
+    // return <h1>Loading...</h1>
+    return (
+      <div className='text-center'>
+        <div className='spinner-border text-primary' style= {{ width: '30rem', height: '30rem' }} role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return <h1>Something error...</h1>
   }
 
   function addQuote (quote) {
@@ -31,21 +37,21 @@ function App () {
     swal(`Quote ${quote.quote} added to list`, "Check it in the bottom of the page !", "success");
   }
 
-  function detailQuote (id) {
-    fetch('https://stoic-server.herokuapp.com/quotes/' + id)
-    .then(res => res.json())
-    .then(res => {
-      swal(`${res[0].body}`, "", "");
+  // function detailQuote (id) {
+  //   fetch('https://stoic-server.herokuapp.com/quotes/' + id)
+  //   .then(res => res.json())
+  //   .then(res => {
+  //     swal(`${res[0].body}`, "", "");
 
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  }
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   })
+  // }
 
-  useEffect(() => {
-    getDataFromServer()
-  }, [])
+  // useEffect(() => {
+  //   getDataFromServer()
+  // }, [])
  
 
   return (
@@ -59,7 +65,7 @@ function App () {
         <ul>
           {
             quoteList.map(quote => {
-              return <QuoteList detailQuote = {detailQuote}  quote = { quote } key= { quote.id }> </QuoteList>
+              return <QuoteList  quote = { quote } key= { quote.id }> </QuoteList>
             })
           }
         </ul>       

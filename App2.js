@@ -1,37 +1,38 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import QuoteList from './components/QuoteList';
 import QuoteForm from './components/QuoteForm';
 import swal from 'sweetalert';
 
 function App () {
-  const [quoteList, setQuotes] = useState([]);
 
-  function getDataFromServer () {
+  getDataFromServer = () => {
     fetch('https://stoic-server.herokuapp.com/search/good')
       .then(res => res.json())
       .then(res => {
-          setQuotes(res)
+        this.setState({
+          ...this.state,
+          quoteList : res
         })
+      })
       .catch(err => {
         console.log(err);
       })
   }
 
-  function addQuote (quote) {
+  addQuote = (quote) => {
     quote.id = Math.random() * 50000000;
     quote.quotesource = quote.source;
     quote.body = quote.quote;
     let newQuoteList = this.state.quoteList.concat(quote);
-    // this.setState({
-    //   ...this.state,
-    //   quoteList : newQuoteList
-    // })
-    setQuotes(newQuoteList);
+    this.setState({
+      ...this.state,
+      quoteList : newQuoteList
+    })
     swal(`Quote ${quote.quote} added to list`, "Check it in the bottom of the page !", "success");
   }
 
-  function detailQuote (id) {
+  detailQuote = (id) => {
     fetch('https://stoic-server.herokuapp.com/quotes/' + id)
     .then(res => res.json())
     .then(res => {
@@ -43,9 +44,9 @@ function App () {
     })
   }
 
-  useEffect(() => {
-    getDataFromServer()
-  }, [])
+  componentDidMount () {
+    this.getDataFromServer();
+  }
  
 
   return (
@@ -54,12 +55,12 @@ function App () {
       
       <div className='container-fluid'>
 
-        <QuoteForm addQuote = { addQuote }/>
+        <QuoteForm addQuote = { this.addQuote }/>
 
         <ul>
           {
             quoteList.map(quote => {
-              return <QuoteList detailQuote = {detailQuote}  quote = { quote } key= { quote.id }> </QuoteList>
+              return <QuoteList detailQuote = {this.detailQuote}  quote = { quote } key= { quote.id }> </QuoteList>
             })
           }
         </ul>       

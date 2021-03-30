@@ -9,7 +9,7 @@ function FilterQuote (props) {
 
   return (
     <>
-       <form style={{marginLeft : '30px'}} >
+       <form style={{marginLeft : '30px', textAlign: 'center'}} >
           <input 
           type = 'text'
           name = 'author'

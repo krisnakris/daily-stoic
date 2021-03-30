@@ -10,7 +10,7 @@ import { useState } from 'react';
 function App () {
   const [show, setShow] = useState('');
 
-  const { data : quoteList, loading, error, setData : setQuotes } = useFetch('https://stoic-server.herokuapp.com/search/good');
+  const { data : quoteList, loading, error } = useFetch('https://stoic-server.herokuapp.com/search/good');
 
   if (loading) {
     return (
@@ -49,7 +49,7 @@ function App () {
       <div className='container'>
         <FilterQuotes filteredQuotes = { filteredQuotes } />
 
-        <div className='container-image'>
+        <div className='container-image mt-5'>
           <div className="row" style= {{ marginBottom: "20rem" }} >
           {
             quoteToShow.map(quote => {

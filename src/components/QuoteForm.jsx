@@ -1,62 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class QuoteForm extends React.Component {
-  constructor () {
-    super()
+function QuoteForm (props) {
+  const [author, setAuthor] = useState('');
+  const [quote, setQuote] = useState('');
+  const [source, setSource] = useState('');
 
-    this.state = {
-      author : '',
-      quote : '',
-      source : ''
-    }
-  }
-
-  handleOnChange = (event) => {
-    this.setState({
-      ...this.state,
-      [event.target.name] : event.target.value
-    })
-  }
-
-  formOnSubmit (event) {
+  function formOnSubmit (event) {
     event.preventDefault();
 
-    this.props.addQuote(this.state);
+    let object = {
+      author, quote, source
+    }
+
+    props.addQuote(object);
   }
 
-  render () {
-    return (
-      <>
-        <form style={{marginLeft : '30px'}} >
-          <input 
-          type = 'text'
-          name = 'author'
-          placeholder = 'author'
-          value = { this.state.author }
-          onChange = { this.handleOnChange }
-          /> <br></br> <br/>
-          <input 
-          type = 'text'
-          name = 'quote'
-          placeholder = 'quote'
-          value = { this.state.quote }
-          onChange = { this.handleOnChange }
-          /> <br/> <br/>
-          <input 
-          type = 'text'
-          name = 'source'
-          placeholder = 'source'
-          value = { this.state.source }
-          onChange = { this.handleOnChange }
-          /> <br/> <br/>
-          {/* <button style= {{ marginLeft : '20px' }}> Add Quote </button> */}
-          <Button variant="success" style= {{ marginLeft : '20px' }} onClick= {(event) => this.formOnSubmit(event)} > Success </Button>{' '}
-        </form>
-      </>
-    )
-  }
+  return (
+    <>
+      <form style={{marginLeft : '30px'}} >
+        <input 
+        type = 'text'
+        name = 'author'
+        placeholder = 'author'
+        onChange = {event => setAuthor(event.target.value) }
+        // value = { author }
+        /> <br></br> <br/>
+        <input 
+        type = 'text'
+        name = 'quote'
+        placeholder = 'quote'
+        onChange = {event => setQuote(event.target.value) }
+        // value = { quote }
+
+        /> <br/> <br/>
+        <input 
+        type = 'text'
+        name = 'source'
+        placeholder = 'source'
+        onChange = {event => setSource(event.target.value) }
+        // value = { source }
+
+        /> <br/> <br/>
+        {/* <button style= {{ marginLeft : '20px' }}> Add Quote </button> */}
+        <Button variant="success" style= {{ marginLeft : '20px' }} onClick= {(event) => formOnSubmit(event)} > Success </Button>{' '}
+      </form>
+    </>
+  )
+  
 }
 
 export default QuoteForm;

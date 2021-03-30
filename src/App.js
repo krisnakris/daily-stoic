@@ -22,7 +22,7 @@ function App () {
     quote.id = Math.random() * 50000000;
     quote.quotesource = quote.source;
     quote.body = quote.quote;
-    let newQuoteList = this.state.quoteList.concat(quote);
+    let newQuoteList = quoteList.concat(quote);
     // this.setState({
     //   ...this.state,
     //   quoteList : newQuoteList

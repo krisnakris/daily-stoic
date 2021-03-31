@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import swal from 'sweetalert';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 function QuoteList ( props ) {
-  
+  const [isShown, setisShown] = useState(false);
+
   function detailQuote () {
     fetch('https://stoic-server.herokuapp.com/quotes/' + props.quote.id)
     .then(res => res.json())
@@ -46,7 +49,15 @@ function QuoteList ( props ) {
             <Card.Text className="card-text">
               { props.quote.body }
             </Card.Text>
-            <Button variant="primary" onClick= {(event) => detailQuote(event)}>Detail</Button>
+            {/* <Button variant="primary" onClick= {(event) => detailQuote(event)}> */}
+              <div className="ml-3" onClick= {(event) => detailQuote(event)}
+                // onMouseEnter={() => setisShown(true)}
+                // onMouseLeave={() => setisShown(false)}
+              >
+                <FontAwesomeIcon icon={ faInfoCircle }/>
+                <span className="ml-3">Detail</span>
+              </div>
+              {/* Detail</Button> */}
           </Card.Body>
         </Card>
       </div>

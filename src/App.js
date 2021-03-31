@@ -4,8 +4,16 @@ import QuoteList from './components/QuoteList';
 // import QuoteForm from './components/QuoteForm';
 // import swal from 'sweetalert';
 import useFetch from './helpers/useFetch';
-import FilterQuotes from './components/FilterQuotes.jsx';
+// import FilterQuotes from './components/FilterQuotes.jsx';
 import { useState } from 'react';
+import Home from './components/Home'
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App () {
   const [show, setShow] = useState('');
@@ -43,24 +51,42 @@ function App () {
   const quoteToShow = show === '' ? quoteList : quoteList.filter(quote => quote.author.toLowerCase().includes(show.toLowerCase()));
 
   return (
-    <>
-      <h3 style= {{ textAlign: 'center' }}> Pick Your Quotes </h3> <br></br>
+    // <>
+    //   <h3 style= {{ textAlign: 'center' }}> Pick Your Quotes </h3> <br></br>
       
-      <div className='container'>
-        <FilterQuotes filteredQuotes = { filteredQuotes } />
+    //   <div className='container'>
+    //     <FilterQuotes filteredQuotes = { filteredQuotes } />
 
-        <div className='container-image mt-5'>
-          <div className="row" style= {{ marginBottom: "20rem" }} >
-          {
-            quoteToShow.map(quote => {
-              return <QuoteList  quote = { quote } key= { quote.id }> </QuoteList>
-            })
-          }
-          </div>   
-        </div>
+    //     <div className='container-image mt-5'>
+    //       <div className="row" style= {{ marginBottom: "20rem" }} >
+    //       {
+    //         quoteToShow.map(quote => {
+    //           return <QuoteList  quote = { quote } key= { quote.id }> </QuoteList>
+    //         })
+    //       }
+    //       </div>   
+    //     </div>
     
+    //   </div>
+    // </>
+    <Router>
+      <div>
+        <ul>
+          <li>
+            <Link to='/'>Home</Link>
+          </li>
+          <li>
+            <Link to='/detail'>Detail</Link>
+          </li>
+        </ul>
+
+        <Switch>
+          <Route exact path='/'>
+            <Home />
+          </Route>
+        </Switch>
       </div>
-    </>
+    </Router>
   )
   
 }

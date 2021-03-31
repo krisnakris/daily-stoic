@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import swal from 'sweetalert';
+import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { Link, useHistory } from 'react-router-dom';
+import { favoriteStore } from '../store/action';
 
 function QuoteList ( props ) {
-  const [isShown, setisShown] = useState(false);
+  // const [isShown, setisShown] = useState(false);
+
+  const dispatch = useDispatch();
+  const favorite = useSelector(state => state.favoritesStore);
 
   let history = useHistory();
 
   function detailQuote () {
-    // fetch('https://stoic-server.herokuapp.com/quotes/' + props.quote.id)
-    // .then(res => res.json())
-    // .then(res => {
-    //   swal(`${res[0].body}`, "", "");
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    // })
-
     history.push('/detail/' + props.quote.id);
   }
 
@@ -34,6 +29,11 @@ function QuoteList ( props ) {
     } else {
       return 'https://upload.wikimedia.org/wikipedia/commons/4/44/Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg';
     }
+  }
+
+  function addToFavorites (event) {
+    event.preventDefault();
+    dispatch(favoriteStore(props.quote));
   }
 
   return (
@@ -59,6 +59,12 @@ function QuoteList ( props ) {
                 <Link to="/detail/" ></Link>
                 <FontAwesomeIcon icon={ faInfoCircle }/>
                 <span className="ml-3">Detail</span>
+              </div>
+
+              <div className="ml-3" onClick= {(event) => addToFavorites(event)}
+              >
+                <FontAwesomeIcon icon={ faInfoCircle }/>
+                <span className="ml-3">Add to favorites</span>
               </div>
               {/* Detail</Button> */}
           </Card.Body>

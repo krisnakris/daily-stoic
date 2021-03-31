@@ -12,7 +12,6 @@ function Home (props) {
 
   // const { data : quoteList, error } = useFetch('https://stoic-server.herokuapp.com/search/good');
 
-  const counter = useSelector(state => state.counter);
   const quoteList = useSelector(state => state.quoteListStore);
   const dispatch = useDispatch();
 
@@ -31,10 +30,6 @@ function Home (props) {
       )
   }, [dispatch])
 
-  function incrementCounter () {
-    dispatch({ type: 'counter/increment', payload: 5 })
-  }
-
   // function addQuote (quote) {
   //   quote.id = Math.random() * 50000000;
   //   quote.quotesource = quote.source;
@@ -52,9 +47,6 @@ function Home (props) {
 
   return (
     <>
-      <h1>Nanti di sebelah kanan ada apa ? Ini coy { counter } </h1>
-      <button onClick={ incrementCounter }> Increment </button>
-
       <h3 style= {{ textAlign: 'center' }}> Pick Your Quotes </h3> <br></br>
       
       <div className='container'>

@@ -1,6 +1,7 @@
 const initialState = {
   counter : 0,
-  quoteListStore : []
+  quoteListStore : [],
+  favoritesStore : []
 }
 
 function reducer (state = initialState, action) {
@@ -10,6 +11,8 @@ function reducer (state = initialState, action) {
     return { ...state, counter: state.counter + payload }
   } else if (type === 'quotes/setQuotes') {
     return { ...state, quoteListStore : payload }
+  } else if (type === 'favorite/setFavorite') {
+    return { ...state, favoritesStore : state.favoritesStore.concat(payload) }
   }
   return state;
 }

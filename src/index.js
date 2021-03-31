@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import Loader from 'react-loader-spinner';
 import { usePromiseTracker } from 'react-promise-tracker';
 import { Provider } from 'react-redux';
-import store from './store';
+import store from './store/index';
 
 const LoadingIndicator = props => {
   const { promiseInProgress } = usePromiseTracker();

@@ -1,13 +1,12 @@
 import './App.css';
 // import React from 'react';
-import QuoteList from './components/QuoteList';
 // import QuoteForm from './components/QuoteForm';
 // import swal from 'sweetalert';
-import useFetch from './helpers/useFetch';
 // import FilterQuotes from './components/FilterQuotes.jsx';
-import { useState } from 'react';
 import Home from './components/Home'
 import Detail from './components/DetailQuotes'
+import Favorite from './components/FavoriteQuotes'
+
 
 import {
   BrowserRouter as Router,
@@ -19,13 +18,15 @@ import {
 function App () {
 
   return (
- 
     <Router>
       <div>
         <ul>
           <li>
             <Link to='/'>Home</Link>
           </li>
+          <li>
+          <Link to='/favorites'>Favorites</Link>
+        </li>
         </ul>
 
         <Switch>
@@ -35,6 +36,9 @@ function App () {
           <Route path='/detail/:id'>
             <Detail />
           </Route>
+          <Route path='/favorites'>
+          <Favorite />
+        </Route>
         </Switch>
       </div>
     </Router>

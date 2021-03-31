@@ -11,7 +11,6 @@ function QuoteList ( props ) {
   // const [isShown, setisShown] = useState(false);
 
   const dispatch = useDispatch();
-  const favorite = useSelector(state => state.favoritesStore);
 
   let history = useHistory();
 

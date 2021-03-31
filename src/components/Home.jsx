@@ -1,29 +1,38 @@
-// import '../';
-// import React from 'react';
 import QuoteList from '../components/QuoteList';
-// import QuoteForm from './components/QuoteForm';
-// import swal from 'sweetalert';
-import useFetch from '../helpers/useFetch';
+// import useFetch from '../helpers/useFetch';
 import FilterQuotes from '../components/FilterQuotes.jsx';
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { trackPromise } from 'react-promise-tracker';
+import { quoteListStore } from '../store/action';
 
 function Home (props) {
   const [show, setShow] = useState('');
 
-  const { data : quoteList, loading, error } = useFetch('https://stoic-server.herokuapp.com/search/good');
+  // const { data : quoteList, error } = useFetch('https://stoic-server.herokuapp.com/search/good');
 
-  if (loading) {
-    return (
-      <div className='text-center'>
-        <div className='spinner-border text-primary' style= {{ width: '30rem', height: '30rem' }} role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      </div>
-    )
-  }
+  const counter = useSelector(state => state.counter);
+  const quoteList = useSelector(state => state.quoteListStore);
+  const dispatch = useDispatch();
 
-  if (error) {
-    return <h1> Error loading page </h1>
+  useEffect(() => {
+    trackPromise(
+      fetch('https://stoic-server.herokuapp.com/search/good')
+        .then(response => 
+          response.json()
+        )
+        .then(quotes => {
+          dispatch(quoteListStore(quotes))
+        })
+        .catch(err => {
+          console.log(err);
+        }) 
+      )
+  }, [dispatch])
+
+  function incrementCounter () {
+    dispatch({ type: 'counter/increment', payload: 5 })
   }
 
   // function addQuote (quote) {
@@ -35,7 +44,6 @@ function Home (props) {
   //   swal(`Quote ${quote.quote} added to list`, "Check it in the bottom of the page !", "success");
   // } 
 
-
   function filteredQuotes (filter) {
     setShow(filter);
   }
@@ -44,6 +52,9 @@ function Home (props) {
 
   return (
     <>
+      <h1>Nanti di sebelah kanan ada apa ? Ini coy { counter } </h1>
+      <button onClick={ incrementCounter }> Increment </button>
+
       <h3 style= {{ textAlign: 'center' }}> Pick Your Quotes </h3> <br></br>
       
       <div className='container'>

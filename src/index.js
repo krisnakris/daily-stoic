@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Loader from 'react-loader-spinner';
 import { usePromiseTracker } from 'react-promise-tracker';
+import { Provider } from 'react-redux';
+import store from './store';
 
 const LoadingIndicator = props => {
   const { promiseInProgress } = usePromiseTracker();
@@ -28,7 +30,9 @@ const LoadingIndicator = props => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store =  { store }>
+      <App />
+    </Provider>
     <LoadingIndicator />
   </React.StrictMode>,
   document.getElementById('root')

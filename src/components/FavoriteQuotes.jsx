@@ -15,7 +15,7 @@ function FavoritesQuotes () {
           <div className="row" style= {{ marginBottom: "20rem" }} >
           {
             listFavorite.map(favorite => {
-              return <QuoteList quote = { favorite } key = { favorite.id } />
+              return <QuoteList quote = { favorite } key = { favorite.id } fromFavorite = { true }/>
             })
           }
          </div>

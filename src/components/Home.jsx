@@ -47,7 +47,7 @@ function Home (props) {
 
   return (
     <>
-      <h3 style= {{ textAlign: 'center' }}> Pick Your Quotes </h3> <br></br>
+      <h3 style= {{ }} className="text-secondary text-center mt-3"> Pick Your Quotes </h3> <br></br>
       
       <div className='container'>
         <FilterQuotes filteredQuotes = { filteredQuotes } />

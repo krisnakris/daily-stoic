@@ -3,12 +3,14 @@ import { Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { Link, useHistory } from 'react-router-dom';
 import { favoriteStore } from '../store/action';
+import swal from 'sweetalert';
 
 function QuoteList ( props ) {
   // const [isShown, setisShown] = useState(false);
+  const [showFavorite, setShowFavorite] = useState(props.fromFavorite ? false : true);
 
   const dispatch = useDispatch();
 
@@ -33,6 +35,23 @@ function QuoteList ( props ) {
   function addToFavorites (event) {
     event.preventDefault();
     dispatch(favoriteStore(props.quote));
+    swal(`Quote added to favorites`, "Check it in on the favorite list!", "success");
+  }
+
+  function showFavoriteIcon () {
+    return (
+      <div>
+        { 
+          showFavorite  && 
+           <>
+            <FontAwesomeIcon icon={ faHeart }/>
+            <span className="ml-3">
+              Add to favorites
+            </span>
+          </>
+        }
+      </div>
+    )
   }
 
   return (
@@ -62,8 +81,7 @@ function QuoteList ( props ) {
 
               <div className="ml-3" onClick= {(event) => addToFavorites(event)}
               >
-                <FontAwesomeIcon icon={ faInfoCircle }/>
-                <span className="ml-3">Add to favorites</span>
+                { showFavoriteIcon() }
               </div>
               {/* Detail</Button> */}
           </Card.Body>

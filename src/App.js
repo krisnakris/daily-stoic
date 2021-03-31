@@ -20,14 +20,14 @@ function App () {
   return (
     <Router>
       <div>
-        <ul>
-          <li>
+        <div className="text-center mt-3">
+          <span className="">
             <Link to='/'>Home</Link>
-          </li>
-          <li>
-          <Link to='/favorites'>Favorites</Link>
-        </li>
-        </ul>
+          </span>
+          <span className="ml-3">
+            <Link to='/favorites'>Favorites</Link>
+          </span>  
+        </div>
 
         <Switch>
           <Route exact path='/'>

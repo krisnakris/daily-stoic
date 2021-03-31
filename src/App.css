@@ -37,6 +37,10 @@ img.card-img-top {
   overflow: scroll;
 }
 
+h3 {
+  font-family: monospace;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

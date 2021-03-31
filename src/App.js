@@ -7,6 +7,7 @@ import useFetch from './helpers/useFetch';
 // import FilterQuotes from './components/FilterQuotes.jsx';
 import { useState } from 'react';
 import Home from './components/Home'
+import Detail from './components/DetailQuotes'
 
 import {
   BrowserRouter as Router,
@@ -44,11 +45,11 @@ function App () {
   // } 
 
 
-  function filteredQuotes (filter) {
-    setShow(filter);
-  }
+  // function filteredQuotes (filter) {
+  //   setShow(filter);
+  // }
 
-  const quoteToShow = show === '' ? quoteList : quoteList.filter(quote => quote.author.toLowerCase().includes(show.toLowerCase()));
+  // const quoteToShow = show === '' ? quoteList : quoteList.filter(quote => quote.author.toLowerCase().includes(show.toLowerCase()));
 
   return (
     // <>
@@ -75,14 +76,14 @@ function App () {
           <li>
             <Link to='/'>Home</Link>
           </li>
-          <li>
-            <Link to='/detail'>Detail</Link>
-          </li>
         </ul>
 
         <Switch>
           <Route exact path='/'>
             <Home />
+          </Route>
+          <Route path='/detail/:id'>
+            <Detail />
           </Route>
         </Switch>
       </div>

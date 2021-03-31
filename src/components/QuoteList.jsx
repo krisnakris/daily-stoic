@@ -4,19 +4,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import swal from 'sweetalert';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { Link, useHistory } from 'react-router-dom';
 
 function QuoteList ( props ) {
   const [isShown, setisShown] = useState(false);
 
+  let history = useHistory();
+
   function detailQuote () {
-    fetch('https://stoic-server.herokuapp.com/quotes/' + props.quote.id)
-    .then(res => res.json())
-    .then(res => {
-      swal(`${res[0].body}`, "", "");
-    })
-    .catch(err => {
-      console.log(err);
-    })
+    // fetch('https://stoic-server.herokuapp.com/quotes/' + props.quote.id)
+    // .then(res => res.json())
+    // .then(res => {
+    //   swal(`${res[0].body}`, "", "");
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    // })
+
+    history.push('/detail/' + props.quote.id);
   }
 
   function checkName () {
@@ -49,11 +54,9 @@ function QuoteList ( props ) {
             <Card.Text className="card-text">
               { props.quote.body }
             </Card.Text>
-            {/* <Button variant="primary" onClick= {(event) => detailQuote(event)}> */}
               <div className="ml-3" onClick= {(event) => detailQuote(event)}
-                // onMouseEnter={() => setisShown(true)}
-                // onMouseLeave={() => setisShown(false)}
               >
+                <Link to="/detail/" ></Link>
                 <FontAwesomeIcon icon={ faInfoCircle }/>
                 <span className="ml-3">Detail</span>
               </div>

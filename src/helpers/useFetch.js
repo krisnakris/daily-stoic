@@ -11,17 +11,17 @@ export default function useFetch (url) {
   useEffect(() => {
     // setLoading(true);
     trackPromise(
-    fetch(url)
-      .then(response => 
-        response.json()
+      fetch(url)
+        .then(response => 
+          response.json()
+        )
+        .then(json => {
+          setData(json)
+        })
+        .catch(err => {
+          setError(err)
+        }) 
       )
-      .then(json => {
-        setData(json)
-      })
-      .catch(err => {
-        setError(err)
-      }) 
-    )
       // .finally(_ => {
       //   setLoading(false);
       // })

@@ -1,6 +1,7 @@
 
 const initialState = {
-  quoteListStore : []
+  quoteListStore : [],
+  quoteDetailStore : {}
 }
 
 function reducer (state = initialState, action) {
@@ -8,7 +9,9 @@ function reducer (state = initialState, action) {
 
   if (type === 'quotes/setQuotes') {
     return { ...state, quoteListStore : payload }
-  } 
+  } else if (type === 'quotes/detailQuotes') {
+    return { ...state, quoteDetailStore : payload }
+  }
   return state;
 }
 

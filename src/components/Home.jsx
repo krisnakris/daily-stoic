@@ -4,8 +4,7 @@ import FilterQuotes from '../components/FilterQuotes.jsx';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { trackPromise } from 'react-promise-tracker';
-import { quoteListStore } from '../store/action';
+import { asyncQuoteListStore } from '../store/action';
 
 function Home (props) {
   const [show, setShow] = useState('');
@@ -16,18 +15,7 @@ function Home (props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    trackPromise(
-      fetch('https://stoic-server.herokuapp.com/search/good')
-        .then(response => 
-          response.json()
-        )
-        .then(quotes => {
-          dispatch(quoteListStore(quotes))
-        })
-        .catch(err => {
-          console.log(err);
-        }) 
-      )
+    dispatch(asyncQuoteListStore())
   }, [dispatch])
 
   // function addQuote (quote) {

@@ -2,18 +2,24 @@ import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import checkNameFunction from '../helpers/generateImage';
+import { useDispatch, useSelector } from 'react-redux';
+import { detailQuotesStore } from '../store/action';
 
 function DetailQuote (props) {
   const params = useParams(); 
 
-  const [detailQuotes, setDetailQuote] = useState([]);
+  // const [detailQuotes, setDetailQuote] = useState([]);
+
+  const detailQuotes = useSelector(state => state.quotes.quoteDetailStore);
+  const dispatch = useDispatch();
 
   useEffect(() =>  {
     let { id } = params; 
     fetch('https://stoic-server.herokuapp.com/quotes/' + (id))
     .then(res => res.json())
     .then(res => {
-      setDetailQuote(res[0]);
+      console.log('res: ', res[0]);
+      dispatch(detailQuotesStore(res[0]));
     })
     .catch(err => {
       console.log(err);

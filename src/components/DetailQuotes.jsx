@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Card } from 'react-bootstrap';
 import checkNameFunction from '../helpers/generateImage';
 import { useDispatch, useSelector } from 'react-redux';
-import { detailQuotesStore } from '../store/action';
+import { asyncDetailQuotesStore } from '../store/action';
 
 function DetailQuote (props) {
   const params = useParams(); 
@@ -15,15 +15,8 @@ function DetailQuote (props) {
 
   useEffect(() =>  {
     let { id } = params; 
-    fetch('https://stoic-server.herokuapp.com/quotes/' + (id))
-    .then(res => res.json())
-    .then(res => {
-      console.log('res: ', res[0]);
-      dispatch(detailQuotesStore(res[0]));
-    })
-    .catch(err => {
-      console.log(err);
-    })
+
+    dispatch(asyncDetailQuotesStore(id));
   }, [params])
 
   const checkName = checkNameFunction(detailQuotes.author);
@@ -37,11 +30,13 @@ function DetailQuote (props) {
           <Card.Img variant="top" src= {checkName}/>
           <Card.Body>
             <Card.Title> { detailQuotes.author } </Card.Title>
-              { detailQuotes.body }
               <div style={{ color: 'blue' }}> 
                 Source : <br></br>
                 { detailQuotes.quotesource } 
               </div>
+
+              { detailQuotes.body }
+
           </Card.Body>
         </Card>
       </div>

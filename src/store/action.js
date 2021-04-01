@@ -33,3 +33,17 @@ export function asyncQuoteListStore () {
   }
 }
 
+export function asyncDetailQuotesStore (id) {
+  return (dispatch) => {
+    trackPromise(
+      fetch('https://stoic-server.herokuapp.com/quotes/' + (id))
+      .then(res => res.json())
+      .then(res => {
+        dispatch(detailQuotesStore(res[0]));
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    )
+  }
+}

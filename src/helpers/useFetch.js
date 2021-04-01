@@ -5,11 +5,7 @@ import { trackPromise } from 'react-promise-tracker';
 export default function useFetch (url) {
   const [data, setData] = useState([]);
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
   useEffect(() => {
-    // setLoading(true);
     trackPromise(
       fetch(url)
         .then(response => 
@@ -19,15 +15,13 @@ export default function useFetch (url) {
           setData(json)
         })
         .catch(err => {
-          setError(err)
+          console.log(err)
         }) 
       )
-      // .finally(_ => {
-      //   setLoading(false);
-      // })
+  
   }, [])
 
   return {
-    data, loading, error, setData
+    data, setData
   }
 }

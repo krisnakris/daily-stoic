@@ -3,14 +3,15 @@ import { Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faInfoCircle, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link, useHistory } from 'react-router-dom';
-import { favoriteStore } from '../store/action';
+import { favoriteStore, deleteSingleFavoriteStore } from '../store/action';
 import swal from 'sweetalert';
 
 function QuoteList ( props ) {
   // const [isShown, setisShown] = useState(false);
   const [showFavorite, setShowFavorite] = useState(props.fromFavorite ? false : true);
+  const favorite = useSelector(state => state.favoritesStore);
 
   const dispatch = useDispatch();
 
@@ -54,6 +55,48 @@ function QuoteList ( props ) {
     )
   }
 
+  function showTrashIcon () {
+    return (
+      <div>
+        {
+          !showFavorite  && 
+          <>
+            <FontAwesomeIcon icon={ faTrash }/>
+            <span className="ml-3">
+              Delete
+            </span>
+          </>
+        }
+      </div>
+    )
+  }
+
+  function deleteFavorite (event) {
+    event.preventDefault();
+
+    let newFavorite = favorite.filter(fav => fav.id !== props.quote.id)
+
+    // dispatch(deleteSingleFavoriteStore(newFavorite));
+    // swal(`Quote added to favorites`, "Check it in on the favorite list!", "success");
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this favorite !",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        dispatch(deleteSingleFavoriteStore(newFavorite));
+        swal("Poof! Your quote has been deleted!", {
+          icon: "success",
+        });
+      } else {
+        swal("Your quote is safe!");
+      }
+    });
+  }
+
   return (
 
     <>
@@ -83,6 +126,12 @@ function QuoteList ( props ) {
               >
                 { showFavoriteIcon() }
               </div>
+              
+              <div className="ml-3" onClick= {(event) => deleteFavorite(event)}
+              >
+                { showTrashIcon() }
+              </div>
+
               {/* Detail</Button> */}
           </Card.Body>
         </Card>

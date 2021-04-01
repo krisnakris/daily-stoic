@@ -12,7 +12,7 @@ function Home (props) {
 
   // const { data : quoteList, error } = useFetch('https://stoic-server.herokuapp.com/search/good');
 
-  const quoteList = useSelector(state => state.quoteListStore);
+  const quoteList = useSelector(state => state.quotes.quoteListStore);
   const dispatch = useDispatch();
 
   useEffect(() => {

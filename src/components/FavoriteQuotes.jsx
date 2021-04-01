@@ -3,7 +3,7 @@ import QuoteList from './QuoteList';
 
 function FavoritesQuotes () {
 
-  const listFavorite = useSelector(state => state.favoritesStore)
+  const listFavorite = useSelector(state => state.favorites.favoritesStore)
 
   return (
     <>

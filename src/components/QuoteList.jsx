@@ -11,7 +11,7 @@ import checkNameFunction from '../helpers/generateImage';
 
 function QuoteList ( props ) {
   const [showFavorite, setShowFavorite] = useState(props.fromFavorite ? false : true);
-  const favorite = useSelector(state => state.favoritesStore);
+  const favorite = useSelector(state => state.favorites.favoritesStore);
 
   const dispatch = useDispatch();
 

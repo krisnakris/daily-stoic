@@ -35,7 +35,13 @@ function QuoteList ( props ) {
 
   function addToFavorites (event) {
     event.preventDefault();
-    dispatch(favoriteStore(props.quote));
+    let newFavorite = favorite.find(fav => fav.id === props.quote.id)
+
+    if (newFavorite) {
+
+    } else {
+      dispatch(favoriteStore(props.quote));
+    }
     swal(`Quote added to favorites`, "Check it in on the favorite list!", "success");
   }
 
